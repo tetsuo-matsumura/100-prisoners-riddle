@@ -1,7 +1,7 @@
 const SETUP = {
-  prisonersAmount: 105,
+  prisonersAmount: 100,
   allowedAttempts: 50,
-  bulkRuns: 100
+  bulkRuns: 1000
 }
 
 console.log(SETUP)
@@ -26,45 +26,36 @@ class Prisoner {
 class Box {
   constructor(number) {
     this.number = number
-    this.opened = false
-  }
-
-  open() {
-    this.opened = true
-    return this.number
   }
 }
 
-const generatePrisoners = () => {
+const generatePrisoners = (prisonersAmount) => {
   let prisoners = {}
-  for(let i = 1; i <= SETUP.prisonersAmount; i++) {
+  for(let i = 1; i <= prisonersAmount; i++) {
     prisoners[i] = new Prisoner(i)
   }
   return prisoners
 }
 
-const generateRoom = () => {
-  let room = {
-    _closeAllBoxes: () => {
-      for(let i = 1; i <= SETUP.prisonersAmount; i++) {
-        room[i].opened = false
-      }    
-    }
-  }
+const generateRoom = (prisonersAmount) => {
+  let room = {}
   let draftedNumbers = []
-  while(draftedNumbers.length < SETUP.prisonersAmount) {
+
+  while(draftedNumbers.length < prisonersAmount) {
     let randomNumber = getRandomNumber()
     if (draftedNumbers.indexOf(randomNumber) === -1) draftedNumbers.push(randomNumber)
   }
-  for(let i = 1; i <= SETUP.prisonersAmount; i++) {
+
+  for(let i = 1; i <= prisonersAmount; i++) {
     room[i] = new Box(draftedNumbers[i-1])
   }
+
   return room
 }
 
 const setupChallenge = () => {
-  const prisoners = generatePrisoners()
-  const room = generateRoom()
+  const prisoners = generatePrisoners(SETUP.prisonersAmount)
+  const room = generateRoom(SETUP.prisonersAmount)
 
   return [prisoners, room]
 }
@@ -72,12 +63,14 @@ const setupChallenge = () => {
 const runChallenge = () => {
   let [prisoners, room] = setupChallenge()
   let result = 'pass'
+
   for(let i = 1; i <= SETUP.prisonersAmount; i++) {
     if(!prisoners[i].takeTurn(room)) {
       result = 'fail'
       return result
     }
   }
+
   return result
 }
 
@@ -87,10 +80,12 @@ const runBulkChallenge = (amount) => {
     fail: 0,
     average: 0
   }
+
   for(let i = 0; i < amount; i++) {
     bulkResult[runChallenge()]++
   }
-  bulkResult.average = bulkResult.pass/amount
+
+  bulkResult.average = bulkResult.pass / amount
   return bulkResult
 }
 
