@@ -1,0 +1,19 @@
+{
+  "name": "100-prisoners-riddle",
+  "version": "1.0.0",
+  "description": "Implementation of the 100 prisoners riddle solution.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tetsuo-matsumura/100-prisoners-riddle.git"
+  },
+  "author": "Tetsuo Matsumura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tetsuo-matsumura/100-prisoners-riddle/issues"
+  },
+  "homepage": "https://github.com/tetsuo-matsumura/100-prisoners-riddle#readme"
+}
