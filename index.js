@@ -27,6 +27,10 @@ class Box {
   constructor(number) {
     this.number = number
   }
+
+  open() {
+    return this.number
+  }
 }
 
 const generatePrisoners = (prisonersAmount) => {
@@ -91,3 +95,5 @@ const runBulkChallenge = (amount) => {
 
 let result = runBulkChallenge(SETUP.bulkRuns)
 console.log(result)
+
+module.exports = runBulkChallenge
